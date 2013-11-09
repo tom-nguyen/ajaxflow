@@ -26,13 +26,20 @@ class AjaxFlow {
 		add_action( 'init', array( &$this, 'init' ) );
 		add_action( 'template_redirect', array( &$this, 'template_redirect' ), 1 );
 		register_activation_hook( __FILE__, array( $this, 'register_activation_hook' ) );
+		add_filter( 'query_vars', array( $this, 'add_query_vars' ) );
+	}
+
+	function add_query_vars( $query_vars )
+	{
+		$query_vars[] = AJAXFLOW_TAG;
+		return $query_vars;
 	}
 
 	function init() {
-		add_rewrite_tag( '%' . AJAXFLOW_TAG , '%', '([^&]+)' );
+		add_rewrite_tag( '%' . AJAXFLOW_TAG . '%', '([^&]+)' );
 		add_rewrite_rule(
-			'^' . AJAXFLOW_TAG , '/([^/]*)',
-			'index.php?' . AJAXFLOW_TAG , '=$matches[1]',
+			'^' . AJAXFLOW_TAG . '/([^/]*)',
+			'index.php?' . AJAXFLOW_TAG . '=$matches[1]',
 			'top'
 		);
 	}
@@ -45,14 +52,13 @@ class AjaxFlow {
 	}
 
 	function register_activation_hook() {
-		$this->init();
+		//$this->init();
 		flush_rewrite_rules();
 	}
 
-	function ajax() {
+	function ajax( $action ) {
 		define( 'DOING_AJAX', true );
 
-		$action = $_REQUEST[ AJAXFLOW_TAG ];
 		if ( empty( $action ) ) return;
 
 		ini_set( 'html_errors', 0 );
@@ -64,7 +70,7 @@ class AjaxFlow {
 
 		$shortinit = apply_filters( AJAXFLOW_TAG . '_shortinit', false, $action );
 		if ( $shortinit || isset( $_REQUEST['shortinit'] ) ) {
-			define( 'SHORTINIT', true );
+			define('SHORTINIT', true);
 		}
 
 		require_once( ABSPATH . '/wp-load.php' );
@@ -83,6 +89,8 @@ class AjaxFlow {
 			do_action( AJAXFLOW_TAG . '_nopriv_' . $action );
 
 		wp_die( 'Your ' . AJAXFLOW_TAG . ' call does not exists or exit is missing in action!', AJAXFLOW_TAG );
+
+		exit;
 
 	}
 
