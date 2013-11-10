@@ -38,21 +38,27 @@ class AjaxFlow {
 	function init() {
 		add_rewrite_tag( '%' . AJAXFLOW_TAG . '%', '([^&]+)' );
 		add_rewrite_rule(
-			'^' . AJAXFLOW_TAG . '/([^/]*)',
+			AJAXFLOW_TAG . '/(.+?)/?$',
 			'index.php?' . AJAXFLOW_TAG . '=$matches[1]',
 			'top'
 		);
+
+		if( isset( $_REQUEST['q'] ) && strpos( $_REQUEST['q'], AJAXFLOW_TAG ) == 1 ){
+			$this->ajax( str_replace( '/' . AJAXFLOW_TAG . '/' , '', $_REQUEST['q'] ) );
+		}
+
 	}
 
 	function template_redirect() {
 		$action = get_query_var( AJAXFLOW_TAG );
-		if ( $action ) {
+		if ( !empty($action) ) {
 			$this->ajax( $action );
+			exit;
 		}
 	}
 
 	function register_activation_hook() {
-		//$this->init();
+		$this->init();
 		flush_rewrite_rules();
 	}
 
