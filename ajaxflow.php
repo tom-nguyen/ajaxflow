@@ -29,8 +29,7 @@ class AjaxFlow {
 		add_filter( 'query_vars', array( $this, 'add_query_vars' ) );
 	}
 
-	function add_query_vars( $query_vars )
-	{
+	function add_query_vars( $query_vars ) {
 		$query_vars[] = AJAXFLOW_TAG;
 		return $query_vars;
 	}
@@ -39,19 +38,19 @@ class AjaxFlow {
 		add_rewrite_tag( '%' . AJAXFLOW_TAG . '%', '([^&]+)' );
 		add_rewrite_rule(
 			AJAXFLOW_TAG . '/(.+?)/?$',
-			'index.php?' . AJAXFLOW_TAG . '=$matches[1]',
+				'index.php?' . AJAXFLOW_TAG . '=$matches[1]',
 			'top'
 		);
 
-		if( isset( $_REQUEST['q'] ) && strpos( $_REQUEST['q'], AJAXFLOW_TAG ) == 1 ){
-			$this->ajax( str_replace( '/' . AJAXFLOW_TAG . '/' , '', $_REQUEST['q'] ) );
+		if ( isset( $_REQUEST['q'] ) && strpos( $_REQUEST['q'], AJAXFLOW_TAG ) == 1 ) {
+			$this->ajax( str_replace( '/' . AJAXFLOW_TAG . '/', '', $_REQUEST['q'] ) );
 		}
 
 	}
 
 	function template_redirect() {
 		$action = get_query_var( AJAXFLOW_TAG );
-		if ( !empty($action) ) {
+		if ( ! empty( $action ) ) {
 			$this->ajax( $action );
 			exit;
 		}
@@ -75,8 +74,8 @@ class AjaxFlow {
 		}
 
 		$shortinit = apply_filters( AJAXFLOW_TAG . '_shortinit', false, $action );
-		if ( $shortinit || isset( $_REQUEST['shortinit'] ) ) {
-			define('SHORTINIT', true);
+		if ( $shortinit || ( isset( $_REQUEST['shortinit'] ) && $_REQUEST['shortinit'] ) ) {
+			define( 'SHORTINIT', true );
 		}
 
 		require_once( ABSPATH . '/wp-load.php' );

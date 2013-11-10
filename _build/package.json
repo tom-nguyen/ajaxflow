@@ -1,0 +1,17 @@
+{
+	"name": "ajaxflow",
+	"title": "AjaxFlow",
+	"description": "Make WordPress ajax call simpler and faster",
+	"version": "0.1.0",
+	"homepage": "https://github.com/EkAndreas/ajaxflow",
+	"author": {
+		"name": "Andreas Ek",
+		"email": "andreas@flowcom.se",
+		"url": "http://www.flowcom.se"
+	},
+	"devDependencies": {
+		"grunt": "~0.4.1",
+		"grunt-phpcs": "*"
+	},
+	"keywords": []
+}
