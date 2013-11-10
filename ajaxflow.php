@@ -81,8 +81,6 @@ class AjaxFlow {
 			define( 'SHORTINIT', true );
 		}
 
-		define( 'SHORTINIT', true );
-
 		require_once( ABSPATH . '/wp-load.php' );
 
 		header( 'Content-Type: text/html' );
