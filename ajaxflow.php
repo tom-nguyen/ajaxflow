@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: AjaxFlow
-Plugin URI: http://github.com/EkAndreas/ajaxflow/
-Description: This plugin helps you create faster and more secure ajax call in WP.
-Author: Andreas Ek
-Version: 1.0
-Author URI: http://www.flowcom.se/
+xPlugin Name: AjaxFlow
+xPlugin URI: http://github.com/EkAndreas/ajaxflow/
+xDescription: This plugin helps you create faster and more secure ajax call in WP.
+xAuthor: Andreas Ek
+xVersion: 1.0
+xAuthor URI: http://www.flowcom.se/
 */
 /********************************************************************
  * TODO: Remove the plugin header and include the class in your WP-project
