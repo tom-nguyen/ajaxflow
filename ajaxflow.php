@@ -23,6 +23,9 @@ class AjaxFlow {
 		// TODO: change this if you want your own tag for ajax call in the URL
 		define( 'AJAXFLOW_TAG', 'ajaxflow' );
 
+		// TODO: force _wpnonce parameter with this definition
+		define( 'AJAXFLOW_NONCE', false );
+
 		add_action( 'init', array( &$this, 'init' ) );
 		add_action( 'template_redirect', array( &$this, 'template_redirect' ), 1 );
 		register_activation_hook( __FILE__, array( $this, 'register_activation_hook' ) );
@@ -67,7 +70,7 @@ class AjaxFlow {
 		if ( empty( $action ) ) return;
 
 		ini_set( 'html_errors', 0 );
-		if ( isset( $_REQUEST['_wpnonce'] ) ) {
+		if ( AJAXFLOW_NONCE ) {
 			if ( ! wp_verify_nonce( $action, $_REQUEST['_wpnonce'] ) ) {
 				wp_die( 'Security check didn´t pass, please check _wpnonce!', AJAXFLOW_TAG );
 			}
