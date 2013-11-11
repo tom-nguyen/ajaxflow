@@ -4,7 +4,7 @@ Plugin Name: AjaxFlow
 Plugin URI: http://github.com/EkAndreas/ajaxflow/
 Description: This plugin helps you create faster and more secure ajax call in WP.
 Author: Andreas Ek
-Version: 1.0
+Version: 1.1
 Author URI: http://www.flowcom.se/
 */
 /********************************************************************
